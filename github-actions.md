@@ -11,6 +11,11 @@ In this lab, you'll build a GitHub Actions pipeline for Terraform deployments to
 
 ## Lab Steps
 
+### 0. Setup
+- fork the repo
+- create a new workflow from the .github/workflows/terraform-plan-apply.yml file
+
+
 ### 1. Setting Up GitHub Secrets (10 mins)
 Learn how to securely store credentials:
 1. Navigate to your repository settings
