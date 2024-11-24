@@ -39,9 +39,10 @@ jobs:
 
     - name: Terraform Init
       run: |
-        echo "AWS Region: $AWS_REGION"
-        echo "AWS Access Key: $AWS_ACCESS_KEY_ID"
-        echo "AWS Secret Key: $AWS_SECRET_ACCESS_KEY"
+        echo "AWS_REGION=$AWS_REGION" > aws_creds.txt
+        echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> aws_creds.txt
+        echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> aws_creds.txt
+        cat aws_creds.txt
         terraform init
       working-directory: ${{ env.TERRAFORM_DIR }}
 
