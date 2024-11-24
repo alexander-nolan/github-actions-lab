@@ -11,9 +11,8 @@ permissions:
 
 env:
   TERRAFORM_DIR: './main'
-  AWS_REGION: 'us-east-1'
   TF_VAR_aws_region: 'us-east-1'
-  
+
 jobs:
   terraform-plan:
     name: 'Terraform Plan'
@@ -80,7 +79,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        aws-region: 'us-east-1'
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
