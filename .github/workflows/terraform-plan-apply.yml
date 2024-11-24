@@ -66,36 +66,36 @@ jobs:
     steps:
       - run: echo "Waiting for approval..."
 
-  # terraform-apply:
-  #   needs: [terraform-plan, approval]
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == '2'
+  terraform-apply:
+    needs: [terraform-plan, approval]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == '2'
     
-  #   steps:
-  #   - uses: actions/checkout@v3
+    steps:
+    - uses: actions/checkout@v3
 
-  #   - name: Configure AWS Credentials
-  #     uses: aws-actions/configure-aws-credentials@v2
-  #     with:
-  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #       aws-region: ${{ secrets.AWS_REGION }}
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-  #   - name: Setup Terraform
-  #     uses: hashicorp/setup-terraform@v2
-  #     with:
-  #       terraform_version: "1.5.0"
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: "1.5.0"
 
-  #   - name: Terraform Init
-  #     run: terraform init
-  #     working-directory: ${{ env.TERRAFORM_DIR }}
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ${{ env.TERRAFORM_DIR }}
 
-  #   - name: Download Terraform Plan
-  #     uses: actions/download-artifact@v3
-  #     with:
-  #       name: tfplan
-  #       path: ${{ env.TERRAFORM_DIR }}
+    - name: Download Terraform Plan
+      uses: actions/download-artifact@v3
+      with:
+        name: tfplan
+        path: ${{ env.TERRAFORM_DIR }}
 
-  #   - name: Terraform Apply
-  #     run: terraform apply -auto-approve tfplan
-  #     working-directory: ${{ env.TERRAFORM_DIR }}
+    - name: Terraform Apply
+      run: terraform apply -auto-approve tfplan
+      working-directory: ${{ env.TERRAFORM_DIR }}

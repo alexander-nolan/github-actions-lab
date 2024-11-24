@@ -15,3 +15,6 @@ aws_secret_access_key = YOUR_DEFAULT_SECRET_KEY
 7. aws s3 mb s3://my-terraform-state-bucket --region us-east-1 (must be globally unique)
 8. change backend in main/backend.tf to use the s3 bucket
 9. add your user to the approvers list in the approval step
+10. push code to main branch
+11. review the plan and approve if you want to apply the changes
+12. check the resources were created in the console
