@@ -191,6 +191,18 @@
 - Review and approve the destroy plan
 - Confirm all resources are cleaned up in AWS Console
 
+### Completion
+
+Congratulations on completing the GitHub Actions and Terraform integration lab! You've successfully configured and executed workflows to manage infrastructure as code, which included planning, applying, and destroying AWS resources based on changes in your repository.
+
+### Lab Summary:
+- You configured the Terraform environment and variables.
+- You modified instance types and triggered workflows through commits and pull requests.
+- You added triggers for cleanup workflows to ensure resources are destroyed when pull requests are closed.
+- You verified changes and cleanup through the GitHub Actions tab and AWS Console.
+
+This hands-on experience is crucial for mastering DevOps practices and understanding the power of automation in cloud infrastructure management.
+
 ### Troubleshooting Guide
 
 #### Common Issues and Solutions
@@ -203,7 +215,3 @@
 - Approval step not appearing:
   - Verify environment name is exactly "gh-actions-lab"
   - Check that you added yourself as a required reviewer
-
-
-test
-
