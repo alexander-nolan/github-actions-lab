@@ -2,6 +2,8 @@
 2. check action was created and ran
 3. generate aws access keys
 4. Create repository secrets
+5. create environment to gh-actions-lab
+6. add your user account to required reviewers in the environment
 5. set aws region to us-east-1 in secrets 
 5. setup aws cli
 6. add config to ~/.aws/credentials 
