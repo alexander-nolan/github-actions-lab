@@ -2,6 +2,11 @@
 
 ### Part 1: Initial Setup and Configuration
 
+#### Fork the Repository
+- Go to the repository page
+- Click the "Fork" button in the top right
+- Select your account as the destination
+
 #### Generate AWS Access Keys
 - Log into AWS Console
 - Go to IAM → Users → Your User
@@ -9,26 +14,12 @@
 - Click "Create access key"
 - Save both the Access Key ID and Secret Access Key
 
-#### Fork the Repository
-- Go to the repository page
-- Click the "Fork" button in the top right
-- Select your account as the destination
-
 ### Part 2: GitHub and AWS Configuration
 
-#### Create GitHub Environment
-- Go to repository Settings → Environments
-- Click "New environment"
-- Name it: gh-actions-lab
-- Enable "Required reviewers"
-- Add your GitHub username as a required reviewer
-- Save protection rules
-
-#### Add GitHub Environment Secrets
-- In repository Settings → Environments
-- Click on "gh-actions-lab" environment
-- Scroll down to "Environment secrets"
-- Click "Add secret"
+#### Add GitHub Repository Secrets
+- Go to your forked repository's Settings
+- Click "Secrets and variables" → "Actions"
+- Click "New repository secret"
 - Add two secrets:
   ```
   Name: AWS_ACCESS_KEY_ID
@@ -37,6 +28,14 @@
   Name: AWS_SECRET_ACCESS_KEY
   Value: (your secret key from step 3)
   ```
+
+#### Create GitHub Environment
+- Go to repository Settings → Environments
+- Click "New environment"
+- Name it: gh-actions-lab
+- Enable "Required reviewers"
+- Add your GitHub username as a required reviewer
+- Save protection rules
 
 ### Part 3: AWS Local Configuration
 
