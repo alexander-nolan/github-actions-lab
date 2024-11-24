@@ -26,7 +26,7 @@ resource "aws_instance" "web" {
               #!/bin/bash
               apt-get update
               apt-get install -y nginx
-              echo "<h1>Hello from Terraform!</h1>" > /var/www/html/index.html
+              echo "<h1>Welcome to the GitHub Actions & Terraform Lab!</h1>" > /var/www/html/index.html
               systemctl enable nginx
               systemctl start nginx
               EOF
