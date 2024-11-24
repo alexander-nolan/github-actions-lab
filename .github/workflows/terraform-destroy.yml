@@ -3,7 +3,7 @@ name: 'Terraform AWS Destroy'
 on:
   workflow_dispatch:
   pull_request:
-    types: [closed]
+    types: [opened]
     branches: [main]
 
 permissions:
