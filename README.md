@@ -176,19 +176,6 @@
       types: [closed]
       branches: [main]
   ```
-- Add a check for merged PRs at the start of the jobs:
-  ```yaml
-  jobs:
-    check-pr-merged:
-      if: github.event.pull_request.merged == true
-      runs-on: ubuntu-latest
-      steps:
-        - run: echo "PR was merged"
-
-    terraform-destroy-plan:
-      needs: check-pr-merged
-      # ... rest of the jobs ...
-  ```
 - Commit and push your changes:
   ```bash
   git add .
