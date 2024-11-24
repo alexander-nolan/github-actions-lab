@@ -60,6 +60,7 @@ jobs:
         retention-days: 1
 
   approval:
+    name: 'Approve Terraform Plan'
     needs: terraform-plan
     runs-on: ubuntu-latest
     environment: gh-actions-lab
@@ -67,6 +68,7 @@ jobs:
       - run: echo "Waiting for approval..."
 
   terraform-apply:
+    name: 'Terraform Apply'
     needs: [terraform-plan, approval]
     runs-on: ubuntu-latest
     
@@ -78,7 +80,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
