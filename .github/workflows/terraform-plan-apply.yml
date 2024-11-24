@@ -63,7 +63,13 @@ jobs:
     needs: terraform-plan
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Waiting for approval..."
+      - name: Manual Approval Check
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.token }}
+          approvers: alexander-nolan
+          minimum-approvals: 1
+          timeout-minutes: 30
 
   # terraform-apply:
   #   needs: [terraform-plan, approval]
