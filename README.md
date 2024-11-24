@@ -173,7 +173,7 @@
   on:
     workflow_dispatch:
     pull_request:
-      types: [closed]
+      types: [opened]
       branches: [main]
   ```
 - Commit and push your changes:
@@ -185,11 +185,11 @@
 
 #### Verify Cleanup Configuration
 - Create a test PR targeting the main branch
-- Merge the PR
-- Go to the Actions tab in GitHub
-- Verify the destroy workflow triggers automatically
+- Wait for the destroy workflow to trigger automatically (this happens when PR is opened)
 - Review and approve the destroy plan
-- Confirm all resources are cleaned up in AWS Console
+- Verify all resources are successfully destroyed in AWS Console
+- Once destruction is confirmed, merge the PR
+- Verify in AWS Console that the environment remains cleaned up after merge
 
 ### Completion
 
