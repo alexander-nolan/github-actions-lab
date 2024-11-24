@@ -60,6 +60,19 @@
 - If this fails with "bucket already exists", add a unique suffix to the bucket name
 - Remember the bucket name you used
 
+### Part 4: Repository Configuration
+
+#### Clone and Create Feature Branch
+- Clone your forked repository:
+  ```bash
+  git clone https://github.com/YOUR-USERNAME/REPO-NAME.git
+  cd REPO-NAME
+  ```
+- Create and checkout a new feature branch:
+  ```bash
+  git checkout -b feature/github-actions-lab
+  ```
+
 #### Update Backend Configuration
 - Open main/backend.tf
 - Update the bucket name to match your created bucket:
@@ -72,19 +85,47 @@
     }
   }
   ```
+#### Commit and Push Changes
+- Stage and commit your changes:
+  ```bash
+  git add main/backend.tf
+  git commit -m "Update S3 backend configuration"
+  ```
+- Push your feature branch to GitHub:
+  ```bash
+  git push -u origin feature/github-actions-lab
+  ```
+- Go to the Actions tab in GitHub
+- Notice that no workflow is running yet - this is because there is no trigger configured for this branch.
 
-### Part 4: Deployment and Verification
+#### Configure Pipeline Trigger
+- Open `.github/workflows/terraform-plan-apply.yml`
+- Add feature branch trigger to the `on` section:
+  ```yaml
+  on:
+    push:
+      branches: [ "feature/**" ]
+    workflow_dispatch:
+  ```
+- Commit and push the changes:
+  ```bash
+  git add .github/workflows/terraform-plan-apply.yml
+  git commit -m "Add feature branch trigger to workflow"
+  git push
+  ```
+
+### Part 5: Deployment and Verification
 
 #### Deploy Infrastructure
-- Commit and push your changes to main branch
-- Go to Actions tab in GitHub
-- Watch the pipeline run
+- Navigate to the Actions tab in GitHub
+- You should now see the workflow running for your feature branch
+- Watch the pipeline run through the plan stage
 - When prompted, review the plan
 - Click "Review deployments"
 - Click "Approve and deploy"
 
 #### Verify Deployment
-- Wait for apply job to complete
+- Wait for the terraform apply job to complete
 - Copy the public IP from the terraform apply output
 - Open the IP in your web browser
 - You should see: "Welcome to the GitHub Actions & Terraform Lab!!"
