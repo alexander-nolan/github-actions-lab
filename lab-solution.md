@@ -17,5 +17,6 @@ aws_secret_access_key = YOUR_DEFAULT_SECRET_KEY
 9. add your user to the approvers list in the approval step
 10. push code to main branch
 11. review the plan and approve if you want to apply the changes
+12. check the resources were created in the console. Wait for the ec2 ins
 12. take the public IP from the terraform apply output and paste it into your browser to verify the web server is working. You should see "Welcome to the GitHub Actions & Terraform Lab!" displayed in the browser.
 
