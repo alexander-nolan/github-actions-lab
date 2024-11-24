@@ -88,7 +88,7 @@
 #### Commit and Push Changes
 - Stage and commit your changes:
   ```bash
-  git add main/backend.tf
+  git add .
   git commit -m "Update S3 backend configuration"
   ```
 - Push your feature branch to GitHub:
@@ -109,7 +109,7 @@
   ```
 - Commit and push the changes:
   ```bash
-  git add .github/workflows/terraform-plan-apply.yml
+  git add .
   git commit -m "Add feature branch trigger to workflow"
   git push
   ```
@@ -126,38 +126,83 @@
 
 #### Verify Deployment
 - Wait for the terraform apply job to complete
-- Copy the public IP from the terraform apply output
+- Get the public IP:
+  1. Go to the AWS Console
+  2. Navigate to EC2 → Instances
+  3. Find the instance named "web-server"
+  4. Copy its public IPv4 address
 - Open the IP in your web browser
 - You should see: "Welcome to the GitHub Actions & Terraform Lab!!"
 
-### Part 6: Update AWS Region
+### Part 6: Update Instance Type
 
 #### Modify Pipeline Configuration
 - Open `.github/workflows/terraform-plan-apply.yml`
 - Locate the `env` section at the top of the file
-- Change the AWS region to `us-west-2`:
+- Add the instance type variable:
   ```yaml
   env:
     TERRAFORM_DIR: './main'
-    AWS_REGION: 'us-west-2'
+    TF_VAR_instance_type: 't2.small'
   ```
 - Commit and push your changes:
   ```bash
-  git add .github/workflows/terraform-plan-apply.yml
-  git commit -m "Update AWS region to us-west-2"
+  git add .
+  git commit -m "Update instance type to t2.small"
   git push
   ```
 
-#### Verify Region Change
+#### Verify Instance Type Change
 - Go to the Actions tab in GitHub
 - Watch the new workflow run
 - Review the plan carefully - you should see:
-  - Resources being destroyed in us-east-1
-  - Same resources being created in us-west-2
+  - The EC2 instance being destroyed and recreated
+  - The only change should be the instance_type from t2.micro to t2.small
 - Approve the deployment
 - After successful deployment:
-  - Verify the application works by accessing the new IP address
-  - Confirm in the AWS Console that the resources are now in us-west-2
+  - Get the new IP address from AWS Console (EC2 → Instances → web-server → Public IPv4 address)
+  - Verify the application works by accessing this new IP in your browser
+  - Confirm in the AWS Console that the instance is now running on t2.small
+
+### Part 7: Configure Cleanup Workflow
+
+#### Add PR Merge Trigger for Destroy
+- Open `.github/workflows/terraform-destroy.yml`
+- Add pull request trigger to the `on` section:
+  ```yaml
+  on:
+    workflow_dispatch:
+    pull_request:
+      types: [closed]
+      branches: [main]
+  ```
+- Add a check for merged PRs at the start of the jobs:
+  ```yaml
+  jobs:
+    check-pr-merged:
+      if: github.event.pull_request.merged == true
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo "PR was merged"
+
+    terraform-destroy-plan:
+      needs: check-pr-merged
+      # ... rest of the jobs ...
+  ```
+- Commit and push your changes:
+  ```bash
+  git add .
+  git commit -m "Add PR merge trigger to destroy workflow"
+  git push
+  ```
+
+#### Verify Cleanup Configuration
+- Create a test PR targeting the main branch
+- Merge the PR
+- Go to the Actions tab in GitHub
+- Verify the destroy workflow triggers automatically
+- Review and approve the destroy plan
+- Confirm all resources are cleaned up in AWS Console
 
 ### Troubleshooting Guide
 
