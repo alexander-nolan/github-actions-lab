@@ -13,14 +13,15 @@ In this lab, you'll build a GitHub Actions pipeline for Terraform deployments to
 
 ### 0. Setup
 - fork the repo
-- create a new workflow from the .github/workflows/terraform-plan-apply.yml file
+- check action was created and ran
+- generate aws access keys
 
 
 ### 1. Setting Up GitHub Secrets (10 mins)
 Learn how to securely store credentials:
 1. Navigate to your repository settings
 2. Find "Secrets and variables" > "Actions"
-3. Add the following secrets:
+3. Add the following repository secrets:
    - AWS_ACCESS_KEY_ID
    - AWS_SECRET_ACCESS_KEY
    - AWS_REGION
