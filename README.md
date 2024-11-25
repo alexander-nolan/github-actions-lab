@@ -2,17 +2,17 @@
 
 ### Part 1: Initial Setup and Configuration
 
-#### Fork the Repository
-- Go to the repository page
-- Click the "Fork" button in the top right
-- Select your account as the destination
-
 #### Generate AWS Access Keys
 - Log into AWS Console
 - Go to IAM → Users → Your User
 - Click "Security credentials" tab
 - Click "Create access key"
 - Save both the Access Key ID and Secret Access Key
+
+#### Fork the Repository
+- Go to the repository page
+- Click the "Fork" button in the top right
+- Select your account as the destination
 
 ### Part 2: GitHub and AWS Configuration
 
@@ -127,6 +127,7 @@
   - 0 resources to change
   - 0 resources to destroy
 - If the numbers don't match exactly, stop and review your configuration
+- Click on the "Approve Terraform Plan" job to review the details
 - Click "Review deployments"
 - Click "Approve and deploy" only after confirming the correct resource count
 
