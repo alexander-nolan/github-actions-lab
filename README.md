@@ -53,11 +53,13 @@
   ```
 
 #### Create S3 Backend
+- Create a globally unique bucket name by adding your username or another unique identifier
+  (e.g., `my-terraform-state-bucket-johndoe123`)
 - In your terminal, run:
   ```bash
-  aws s3 mb s3://my-terraform-state-bucket --region us-east-1
+  aws s3 mb s3://my-terraform-state-bucket-YOUR-UNIQUE-SUFFIX --region us-east-1
   ```
-- If this fails with "bucket already exists", add a unique suffix to the bucket name
+- If this still fails with "bucket already exists", try a different unique suffix
 - Remember the bucket name you used
 
 ### Part 4: Repository Configuration
@@ -120,9 +122,13 @@
 - Navigate to the Actions tab in GitHub
 - You should now see the workflow running for your feature branch
 - Watch the pipeline run through the plan stage
-- When prompted, review the plan
+- When prompted, carefully review the Terraform plan. You should see:
+  - 7 resources to add
+  - 0 resources to change
+  - 0 resources to destroy
+- If the numbers don't match exactly, stop and review your configuration
 - Click "Review deployments"
-- Click "Approve and deploy"
+- Click "Approve and deploy" only after confirming the correct resource count
 
 #### Verify Deployment
 - Wait for the terraform apply job to complete
@@ -155,9 +161,11 @@
 #### Verify Instance Type Change
 - Go to the Actions tab in GitHub
 - Watch the new workflow run
-- Review the plan carefully - you should see:
-  - The EC2 instance being destroyed and recreated
-  - The only change should be the instance_type from t2.micro to t2.small
+- Review the Terraform plan carefully. You should see:
+  - 0 resources to add
+  - 1 resource to change (the EC2 instance)
+  - 0 resources to destroy
+- Verify that the only modification is the instance_type changing from t2.micro to t2.small
 - Approve the deployment
 - After successful deployment:
   - Get the new IP address from AWS Console (EC2 → Instances → web-server → Public IPv4 address)
@@ -184,9 +192,14 @@
   ```
 
 #### Verify Cleanup Configuration
-- Create a test PR targeting the main branch
+- Create a PR from your feature branch to the main branch
 - Wait for the destroy workflow to trigger automatically (this happens when PR is opened)
-- Review and approve the destroy plan
+- When prompted, carefully review the Terraform destroy plan. You should see:
+  - 0 resources to add
+  - 0 resources to change
+  - 7 resources to destroy
+- If the numbers don't match exactly, stop and investigate
+- Review and approve the destroy plan only after confirming all 7 resources will be destroyed
 - Verify all resources are successfully destroyed in AWS Console
 - Once destruction is confirmed, merge the PR
 - Verify in AWS Console that the environment remains cleaned up after merge
