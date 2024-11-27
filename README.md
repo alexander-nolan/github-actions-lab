@@ -37,29 +37,18 @@
 - Add your GitHub username as a required reviewer
 - Save protection rules
 
-### Part 3: AWS Local Configuration
-
-#### Configure AWS CLI
-- Open ~/.aws/credentials in a text editor
-- Add the following section:
-  ```
-  [gh-actions-lab]
-  aws_access_key_id = YOUR_ACCESS_KEY_ID
-  aws_secret_access_key = YOUR_SECRET_KEY
-  ```
-- In your terminal, run:
-  ```bash
-  export AWS_PROFILE=gh-actions-lab
-  ```
+### Part 3: AWS Configuration
 
 #### Create S3 Backend
+- Log into AWS Console
+- Navigate to S3 service
+- Click "Create bucket"
 - Create a globally unique bucket name by adding your username or another unique identifier
   (e.g., `my-terraform-state-bucket-johndoe123`)
-- In your terminal, run:
-  ```bash
-  aws s3 mb s3://my-terraform-state-bucket-YOUR-UNIQUE-SUFFIX --region us-east-1
-  ```
-- If this still fails with "bucket already exists", try a different unique suffix
+- Select region "us-east-1"
+- Keep all other settings as default
+- Click "Create bucket"
+- If you get an error that the bucket name already exists, try a different unique suffix
 - Remember the bucket name you used
 
 ### Part 4: Repository Configuration
