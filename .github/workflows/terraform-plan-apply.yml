@@ -2,6 +2,9 @@ name: 'Terraform AWS Pipeline'
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'feature/*'  # This pattern matches any branch starting with 'feature/'
 
 permissions:
   contents: read
