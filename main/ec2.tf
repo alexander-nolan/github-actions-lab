@@ -39,7 +39,7 @@ resource "aws_instance" "web" {
 
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = file("~/.ssh/id_rsa.pub")  # Make sure this key exists locally
+  public_key = file("/Users/Admin/.ssh/id_rsa.pub")  # Make sure this key exists locally
 }
 
 output "public_ip" {
